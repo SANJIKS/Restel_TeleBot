@@ -8,7 +8,7 @@ def get_top_hotels():
     else:
         return 'Ошибочка'
     
-    
+
 def get_all_rooms():
     response = requests.get('https://hotel-booking-api-xfpw.onrender.com/room/')
     if response.status_code == 200:
