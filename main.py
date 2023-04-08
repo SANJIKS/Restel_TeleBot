@@ -13,9 +13,9 @@ def get_keyboard():
     markup = types.InlineKeyboardMarkup()
     button1 = types.InlineKeyboardButton('Все отели', callback_data='all')
     button2 = types.InlineKeyboardButton('Лучшие отели', callback_data='top')
-    button3 = types.InlineKeyboardButton('Все комнаты', callback_data='rooms')
+    # button3 = types.InlineKeyboardButton('Все комнаты', callback_data='rooms')
     button4 = types.InlineKeyboardButton('Выйти', callback_data='quit')
-    markup.add(button1, button2, button3, button4)
+    markup.add(button1, button2, button4)
     return markup
 
 
@@ -60,14 +60,14 @@ def go_to_site(call):
 
 
 
-@bot.callback_query_handler(func=lambda call: call.data == 'rooms')
-def get_rooms(call):
-    chat_id = call.message.chat.id
-    rooms = get_all_rooms()
-    for item in rooms:
-        hotel_name = get_hotel_name(item['id'])
-        bot.send_message(chat_id=chat_id, text=f'Отель: {hotel_name}\n \nНомер комнаты: {item["room_number"]}\n \nТип комнаты: {item["room_type"]}\n \nЦена за ночь: {item["price_per_night"]}')
-    bot.send_message(chat_id=chat_id, text='Дальше', reply_markup=get_keyboard())
+# @bot.callback_query_handler(func=lambda call: call.data == 'rooms')
+# def get_rooms(call):
+#     chat_id = call.message.chat.id
+#     rooms = get_all_rooms()
+#     for item in rooms:
+#         hotel_name = get_hotel_name(item['id'])
+#         bot.send_message(chat_id=chat_id, text=f'Отель: {hotel_name}\n \nНомер комнаты: {item["room_number"]}\n \nТип комнаты: {item["room_type"]}\n \nЦена за ночь: {item["price_per_night"]}')
+#     bot.send_message(chat_id=chat_id, text='Дальше', reply_markup=get_keyboard())
 
 
 
@@ -75,6 +75,7 @@ def get_rooms(call):
 @bot.callback_query_handler(func=lambda call: call.data =='top')
 def top_hotels(call):
     chat_id = call.message.chat.id
+    bot.send_message(chat_id=chat_id, text='Конечно, вот 5 отелей которые мы вам рекомендуем:')
     top_hotels = get_top_hotels()
     for item in top_hotels:
         bot.send_message(chat_id=chat_id, text=f'Название: {item["name"]}\n \nЗвезды: {item["stars"]}\n \nОписание: {item["description"]}\n \nАдрес: {item["address"]}')
