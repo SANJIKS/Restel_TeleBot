@@ -3,7 +3,7 @@ import requests
 import telebot
 from telebot import types
 
-from parsing import get_all_hotels, get_all_rooms, get_top_hotels
+from parsing import get_all_hotels, get_all_rooms, get_hotel_name, get_top_hotels
 
 Token = '5800386865:AAGBVsed9AcxVzA2a_opNz_Zjb7jDYzCGd8'
 
@@ -65,7 +65,8 @@ def get_rooms(call):
     chat_id = call.message.chat.id
     rooms = get_all_rooms()
     for item in rooms:
-        bot.send_message(chat_id=chat_id, text=f'Отель: {item["hotel"]}\n \nНомер комнаты: {item["room_number"]}\n \nТип комнаты: {item["room_type"]}\n \nЦена за ночь: {item["price_per_night"]}')
+        hotel_name = get_hotel_name(item['id'])
+        bot.send_message(chat_id=chat_id, text=f'Отель: {hotel_name}\n \nНомер комнаты: {item["room_number"]}\n \nТип комнаты: {item["room_type"]}\n \nЦена за ночь: {item["price_per_night"]}')
     bot.send_message(chat_id=chat_id, text='Дальше', reply_markup=get_keyboard())
 
 
