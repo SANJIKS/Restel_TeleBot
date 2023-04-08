@@ -30,6 +30,5 @@ def get_hotel_name(hotel_id):
     for name in hotels:
         if name['id'] == hotel_id:
             hotel_name = name['name']
-    
-    return hotel_name
+            return hotel_name
 
